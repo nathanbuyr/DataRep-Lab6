@@ -2,10 +2,19 @@ const express = require('express');
 const app = express();
 const port = 4000;
 
+const cors = require('cors'); // Allows communication between the React app and Node/Express server
+app.use(cors());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.get('/api/movies', (req, res) => {
     const movies = [
-        {
-            "movies": [
+       
               {
                 "Title": "Avengers: Infinity War (server)",
                 "Year": "2018",
@@ -28,8 +37,7 @@ app.get('/api/movies', (req, res) => {
                 "Poster": "https://m.media-amazon.com/images/M/MV5BNDQ4YzFmNzktMmM5ZC00MDZjLTk1OTktNDE2ODE4YjM2MjJjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg"
               }
             ]
-          }
-    ];
+      ;
     res.status(200).json({movies});
 });
 
