@@ -11,7 +11,7 @@ const Read = () => {
 
     // Asynchronously accessing the movie data the main website doesn't freeze
     useEffect(() => { // useEffect is used here to connect the read.js component to an external system
-        axios.get('https://jsonblob.com/api/jsonblob/1287718524221775872') // Grabbing the jsondata using axios
+        axios.get('http://localhost:4000/api/movies') // Grabbing the jsondata using axios
             .then((response) => {
                 console.log(response.data);
                 setMovies(response.data.movies);
