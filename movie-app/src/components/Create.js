@@ -1,17 +1,29 @@
 // create.js
 
 import { useState } from "react";
+import axios from "axios"; // Axios is used here to fetch data in react applications through asynchronously HTTP requests
 
 function Create() {
   const [title, setTitle] = useState(''); //useState is used to store data returned from an API and manage the state of the application
   const [year, setYear] = useState('');
   const [poster, setPoster] = useState('');
 
-  const handleSubmit = (e) => { //Logging the user implemented data into the console
-    e.preventDefault(); // preventDefault prevents this function being called multiple times
-    const movie = {title,year,poster};
-    console.log(movie);
-  }
+  // create.js
+const handleSubmit = (e) => {
+  e.preventDefault();
+  
+  console.log(`Title: ${title}, Year: ${year}, Poster: ${poster}`);
+  
+  const movie = {
+    title: title,
+    year: year,
+    poster: poster
+  };
+  
+  axios.post('http://localhost:4000/api/movies', movie) // Posts the movie from the client on to the server
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err.data));
+};
   return (
     <div>
       <h2>This is my Create Component.</h2>
@@ -46,6 +58,8 @@ function Create() {
         <input type="submit" value="Add Movie" />
       </form>
     </div>
+
+    
   );
 }
 
